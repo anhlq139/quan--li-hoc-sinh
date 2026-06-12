@@ -537,3 +537,62 @@ input:focus, select:focus {
     .content-wrapper { padding: 16px; }
     .charts-container { grid-template-columns: 1fr; }
 }
+
+/* Exam Management Styles */
+.question-item {
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+.question-item .remove-q-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: var(--weak);
+    cursor: pointer;
+    font-size: 16px;
+    transition: var(--transition);
+}
+
+.question-item .remove-q-btn:hover {
+    color: #b91c1c;
+    transform: scale(1.1);
+}
+
+.question-options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.option-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.option-prefix {
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.correct-ans-select {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.correct-ans-select select {
+    width: auto;
+    padding: 8px 12px;
+}
+

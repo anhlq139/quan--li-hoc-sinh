@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduExam | Hệ Thống Khảo Thí Học Sinh</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="student.css">
+</head>
+<body>
+    <!-- Login Screen (Visible if student name is not registered) -->
+    <div id="student-login-screen" class="login-wrapper active">
+        <div class="login-card card-glass">
+            <div class="login-header">
+                <i class="fa-solid fa-file-pen login-icon"></i>
+                <h2>EduExam</h2>
+                <p>Nhập họ tên của bạn để bắt đầu làm bài thi</p>
+            </div>
+            <form id="student-login-form">
+                <div class="form-group">
+                    <label for="student-name">Họ và Tên Học Sinh</label>
+                    <input type="text" id="student-name" required placeholder="Nhập đầy đủ họ và tên...">
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px;">
+                    Vào Phòng Thi <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Container (Visible after login) -->
+    <div id="student-dashboard" class="dashboard-container hidden">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-file-signature logo-icon"></i>
+                <h2>EduExam</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="active"><a href="#" id="nav-student-exams"><i class="fa-solid fa-book-open"></i> Đề thi có sẵn</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="welcome-msg">
+                    <h3>Hệ thống khảo thí trực tuyến</h3>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar"><i class="fa-solid fa-user-graduate"></i></div>
+                    <span>
+                        <span id="student-display-name">Học sinh</span>
+                        <i class="fa-solid fa-right-from-bracket" id="student-logout-btn" style="margin-left: 10px; cursor: pointer; color: var(--error);" title="Thoát phòng thi"></i>
+                    </span>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <!-- Portal Main Screen -->
+                <section id="portal-view" class="view-section active">
+                    <h1 class="page-title">Danh Sách Đề Thi Trắc Nghiệm</h1>
+                    <div class="exams-grid" id="student-exams-grid">
+                        <!-- Exam cards will be rendered dynamically here -->
+                    </div>
+                    <div id="no-student-exams" class="no-data hidden">
+                        <i class="fa-regular fa-calendar-times"></i>
+                        <p>Hiện tại chưa có đề thi nào được tạo bởi giáo viên.</p>
+                    </div>
+                </section>
+
+                <!-- Exam Taking View -->
+                <section id="exam-taking-view" class="view-section">
+                    <div class="exam-header card-glass">
+                        <div class="exam-header-info">
+                            <h2 id="taking-exam-title">Đề thi mẫu</h2>
+                            <span class="exam-badge" id="taking-exam-qcount"><i class="fa-solid fa-list-check"></i> 10 câu hỏi</span>
+                        </div>
+                        <div class="timer-container">
+                            <i class="fa-solid fa-clock timer-icon"></i>
+                            <span id="exam-timer">15:00</span>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-text">Tiến độ làm bài: <span id="progress-percentage">0%</span></div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="exam-progress-bar"></div>
+                        </div>
+                    </div>
+
+                    <!-- Exam Body Grid (Left: Question, Right: Nav Panel) -->
+                    <div class="exam-grid-container">
+                        <div class="exam-questions-list" id="exam-questions-list">
+                            <!-- Dynamic questions will be rendered here -->
+                        </div>
+                        
+                        <div class="exam-nav-panel card-glass">
+                            <h3>Danh sách câu hỏi</h3>
+                            <div class="q-nav-grid" id="q-nav-grid">
+                                <!-- Navigation buttons generated here -->
+                            </div>
+                            <div class="exam-submit-area">
+                                <button type="button" class="btn-primary" id="btn-submit-exam" style="width: 100%; justify-content: center; padding: 12px;">
+                                    <i class="fa-solid fa-paper-plane"></i> Nộp Bài Thi
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Exam Result View -->
+                <section id="exam-result-view" class="view-section">
+                    <div class="result-card card-glass">
+                        <div class="result-header">
+                            <i class="fa-solid fa-trophy trophy-icon"></i>
+                            <h2>Kết Quả Bài Thi</h2>
+                            <p id="result-exam-title">Đề thi Toán học</p>
+                        </div>
+                        
+                        <div class="score-display">
+                            <div class="score-circle">
+                                <span id="result-score">8.5</span>
+                                <p>điểm</p>
+                            </div>
+                        </div>
+
+                        <div class="result-stats">
+                            <div class="stat-box">
+                                <span id="result-correct-count" class="correct">8</span>
+                                <p>Câu đúng</p>
+                            </div>
+                            <div class="stat-box">
+                                <span id="result-wrong-count" class="wrong">2</span>
+                                <p>Câu sai</p>
+                            </div>
+                            <div class="stat-box">
+                                <span id="result-total-q" class="total">10</span>
+                                <p>Tổng câu</p>
+                            </div>
+                        </div>
+
+                        <div class="result-actions">
+                            <button type="button" class="btn-primary" id="btn-back-to-portal">
+                                <i class="fa-solid fa-house"></i> Quay Về Trang Chủ
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Confirm Modal Popup -->
+    <div class="modal-overlay" id="confirm-exam-modal">
+        <div class="modal-content card-glass" style="max-width: 450px; text-align: center;">
+            <div class="confirm-icon"><i class="fa-solid fa-circle-question"></i></div>
+            <h2 style="margin-bottom: 12px;">Bạn đã sẵn sàng?</h2>
+            <p style="color: var(--text-muted); margin-bottom: 24px; line-height: 1.5;">
+                Bạn chuẩn bị bắt đầu làm bài thi <strong id="confirm-exam-title"></strong>.<br>
+                Thời gian làm bài là <strong id="confirm-exam-duration"></strong> phút. Đồng hồ sẽ đếm ngược ngay khi bạn bắt đầu!
+            </p>
+            <div class="form-actions" style="justify-content: center; gap: 16px; margin-top: 0;">
+                <button type="button" class="btn-secondary" id="btn-confirm-no" style="padding: 12px 24px; min-width: 100px;">Không</button>
+                <button type="button" class="btn-primary" id="btn-confirm-yes" style="padding: 12px 24px; min-width: 100px;">Có</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Script -->
+    <script src="student.js"></script>
+</body>
+</html>
