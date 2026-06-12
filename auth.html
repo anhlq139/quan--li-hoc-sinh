@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác Thực | Hệ Thống Quản Lý Học Sinh</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="auth.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'%3E%3Cpath fill='%234361ee' d='M320 32c-8.1 0-16.1 1.4-23.7 4.1L15.8 137.4C6.3 140.9 0 149.9 0 160s6.3 19.1 15.8 22.6l57.4 20.3c-2.3 5.7-4 11.9-5.1 18.5c-1 6-1.5 12.3-1.5 18.9c0 38.3 16.5 72.5 42 94.6c23.6 20.4 56.6 33.5 95.3 33.5s71.7-13.1 95.3-33.5c25.5-22.1 42-56.3 42-94.6c0-6.6-.5-12.8-1.5-18.9c-1.1-6.6-2.8-12.8-5.1-18.5l57.4-20.3L624.2 182.6c9.5-3.5 15.8-12.5 15.8-22.6s-6.3-19.1-15.8-22.6L343.7 36.1C336.1 33.4 328.1 32 320 32zM128 408c0 35.3 86 72 192 72s192-36.7 192-72L496.7 262.6 354.5 312.8c-11.1 3.9-22.8 5.8-34.5 5.8s-23.4-1.9-34.5-5.8L143.3 262.6 128 408z'/%3E%3C/svg%3E">
+</head>
+<body>
+    <div class="auth-container" id="auth-container">
+        <!-- Sign Up Form (Người dùng gọi là Log In) -->
+        <div class="form-container sign-up-container">
+            <form id="register-form">
+                <h2>Tạo Tài Khoản</h2>
+                <p class="subtitle">Dành cho người chưa có tài khoản</p>
+                <div class="input-group">
+                    <i class="fa-regular fa-envelope"></i>
+                    <input type="email" id="reg-email" placeholder="Email" required />
+                </div>
+                <div class="input-group">
+                    <i class="fa-regular fa-user"></i>
+                    <input type="text" id="reg-name" placeholder="Tên" required />
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-cake-candles"></i>
+                    <input type="number" id="reg-age" placeholder="Tuổi" required min="1" />
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="reg-password" placeholder="Mật khẩu" required />
+                </div>
+                <div id="reg-error" class="error-msg"></div>
+                <button type="submit" class="auth-btn" id="reg-btn">Đăng Kí</button>
+            </form>
+        </div>
+
+        <!-- Sign In Form (Người dùng gọi là Sign In) -->
+        <div class="form-container sign-in-container">
+            <form id="login-form">
+                <h2>Đăng Nhập</h2>
+                <p class="subtitle">Dành cho người đã có tài khoản</p>
+                <div class="input-group">
+                    <i class="fa-regular fa-user"></i>
+                    <input type="text" id="login-name" placeholder="Tên đăng nhập" required />
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="login-password" placeholder="Mật khẩu" required />
+                </div>
+                <div id="login-error" class="error-msg"></div>
+                <button type="submit" class="auth-btn">Đăng Nhập</button>
+            </form>
+        </div>
+
+        <!-- Overlay for animation -->
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h2>Đã có tài khoản?</h2>
+                    <p>Hãy đăng nhập để truy cập vào hệ thống quản lý học sinh.</p>
+                    <button class="ghost-btn" id="signIn">Chuyển sang Đăng Nhập</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h2>Chưa có tài khoản?</h2>
+                    <p>Đăng ký ngay để trải nghiệm nền tảng quản lý của chúng tôi.</p>
+                    <button class="ghost-btn" id="signUp">Chuyển sang Đăng Kí</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Modal for Email -->
+    <div class="email-modal" id="email-modal">
+        <div class="email-modal-content">
+            <div class="success-icon"><i class="fa-solid fa-envelope-circle-check"></i></div>
+            <h3>Kiểm tra hộp thư của bạn!</h3>
+            <p>Chúng tôi đã gửi một email xác nhận đến địa chỉ <strong><span id="display-email"></span></strong>.</p>
+            <button class="auth-btn" id="close-email-btn">Đã hiểu</button>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>
